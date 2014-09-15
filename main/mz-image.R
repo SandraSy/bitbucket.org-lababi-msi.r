@@ -1,3 +1,6 @@
+#set working directory to source file
+setwd("~/SRC/MSI.R/main")
+
 # Load Java
 #install.packages("rJava")
 library(rJava)
@@ -46,5 +49,6 @@ x=x+1
 y=y+1
 }
 
+png("mzimage.png")
 levelplot(intmatrix,main="Intensity m/z",xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = terrain.colors(100))
-
+dev.off()
