@@ -3,6 +3,10 @@
 library(rJava)
 .jinit()
 
+# Library for 2D maps
+#install.packages("latticeExtra")
+library(latticeExtra)
+
 # You need the imzMLConverter: http://www.cs.bham.ac.uk/~ibs/imzMLConverter/
 .jaddClassPath(path="/home/rob/SRC/MSI.R/imzMLConverter/imzMLConverter.jar")
 
@@ -42,6 +46,5 @@ x=x+1
 y=y+1
 }
 
-library(latticeExtra)
-levelplot(intmatrix,main="Intensity m/z",xlab="[mm]",ylab="[mm]",contour=TRUE,pretty=TRUE,col.regions = terrain.colors(100))
+levelplot(intmatrix,main="Intensity m/z",xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = terrain.colors(100))
 
