@@ -1,5 +1,4 @@
-# This script generates an image of a selected m/z range
-# Please enter the desired mass range in  the line mzrangeindex <- (specmatrix[,1] > 820 & specmatrix[,1] < 840)
+# This script generates mass images for a selected m/z range and m/z tolerance
 # Further important parameters are:
 # * Location of the imzMLConverter (.jaddClassPath)
 # * Location of imzML file
