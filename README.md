@@ -13,5 +13,5 @@ Please report your experiences and problems.
 
 ### Contact ###
 
-robert.winkler@ira.cinvestav.mx
+robert.winkler@ira.cinvestav.mx,
 robert.winkler@bioprocess.org
