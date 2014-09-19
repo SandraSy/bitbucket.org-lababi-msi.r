@@ -5,6 +5,11 @@ rm(list=ls())
 #set working directory to source file
 setwd("~/SRC/MSI.R/main")
 
+# install MALDIquant
+#install.packages(c("MALDIquantForeign", "MALDIquant"))
+library("MALDIquant")
+library("MALDIquantForeign")
+
 # Library for 2D maps
 #install.packages("latticeExtra")
 library(latticeExtra)
@@ -32,10 +37,10 @@ colnames(intmatrix) <- seq(minx,maxx)
 rownames(intmatrix) <- seq(miny,maxy)
 
 
-centermz<-0 #in m/z, start of scanning
-scanmaxmz<-1000 #in m/z, end of scanning
-scansteps<-5 #in m/z, should be smaller than scantolerance
-scantolerance<-10 #in m/z
+centermz<-0.1 #in m/z, start of scanning
+scanmaxmz<-2000 #in m/z, end of scanning
+scansteps<-0.2 #in m/z, should be smaller than scantolerance
+scantolerance<-0.4 #in m/z
 
 while (centermz<=scanmaxmz)
 {

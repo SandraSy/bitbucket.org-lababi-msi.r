@@ -1,18 +1,10 @@
 # This script generates an image of a selected m/z range
 # Please enter the desired mass range in  the line mzrangeindex <- (specmatrix[,1] > 820 & specmatrix[,1] < 840)
-# Further important parameters are:
-# * Location of the imzMLConverter (.jaddClassPath)
-# * Location of imzML file
 
 # Clear Workspace
 rm(list=ls())
 #set working directory to source file
 setwd("~/SRC/MSI.R/main")
-
-# Load Java
-#install.packages("rJava")
-#library(rJava)
-#.jinit()
 
 # install MALDIquant
 #install.packages(c("MALDIquantForeign", "MALDIquant"))
@@ -54,7 +46,7 @@ mzs <- mass(imagespectra[[specno]])
 counts <- intensity(imagespectra[[specno]])
 specmatrix <- cbind(mzs, counts)
 
-mzrangeindex <- (specmatrix[,1] > 305 & specmatrix[,1] < 310)
+mzrangeindex <- (specmatrix[,1] > 61 & specmatrix[,1] < 63)
 decisionvalue<- sum(mzrangeindex)
 if (decisionvalue=="0"){mzpixintensity<-0}
 if (decisionvalue=="1"){mzrangeints<-specmatrix[mzrangeindex, ]
