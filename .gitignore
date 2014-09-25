@@ -1,6 +1,10 @@
 main/.RData
 main/.Rhistory
 main/*.png
+main/*.tiff
+main/*.mzML
 test/
 msi-org/
 SampleData/
+MSI.R-chilli/
+imzMLConverter/
