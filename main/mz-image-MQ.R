@@ -41,7 +41,7 @@ rownames(intmatrix) <- seq(miny,maxy)
 
 specno <-1
 
-centermz<-62 #in m/z, mass trace of interest
+centermz<-84.1 #in m/z, mass trace of interest
 scantolerance<-0.4 #in m/z
 
 lowermass<-centermz-scantolerance
@@ -103,9 +103,9 @@ mzs <- mass(imagespectra[[specno]])
 counts <- intensity(imagespectra[[specno]])
 #plot to tiff
 # OUTPUT
-tiffspecname<-paste(prefix,toString(centermz),"_",toString(scantolerance),".tiff",sep="")
-tiffspectitle<-paste("m/z ",toString(centermz),"+/-",toString(scantolerance),sep="")
-mzMLspecname<-paste(prefix,toString(centermz),"_",toString(scantolerance),".mzML",sep="")
+tiffspecname<-paste(toString(specposition['x']),"x_",toString(specposition['y']),"y_maxInt_",prefix,toString(centermz),"_",toString(scantolerance),".tiff",sep="")
+tiffspectitle<-paste("x=",toString(specposition['x']),", y=",toString(specposition['y'])," m/z ",toString(centermz),"+/-",toString(scantolerance),sep="")
+mzMLspecname<-paste(toString(specposition['x']),"x_",toString(specposition['y']),"y_maxInt_",prefix,toString(centermz),"_",toString(scantolerance),".mzML",sep="")
 
 tiff(filename=tiffspecname,res=1200,compression="lzw",height=200,width=200,units="mm")
 plot(mzs,counts,xlab="m/z",ylab="intensity",main=tiffspectitle,"h")

@@ -74,7 +74,8 @@ while (specno<=elementsimzML)
 }
 
 R<-intmatrix
-
+minR<-0.1*max(R)
+R[ R < minR ] <- 0
 col.R <- colorRampPalette(c('white','red'))(100) 
 tiff(filename="R.tiff",res=1200,compression="lzw",height=200,width=200,units="mm")
 print(levelplot(R,main="",xlab="",ylab="",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,colorkey=FALSE,regions=TRUE,col.regions = col.R))
@@ -84,7 +85,7 @@ dev.off()
 
 specno <-1
 
-centermz<-63.1 #in m/z, mass trace of interest
+centermz<-84.1 #in m/z, mass trace of interest
 scantolerance<-0.4 #in m/z
 
 lowermass<-centermz-scantolerance
@@ -116,7 +117,8 @@ while (specno<=elementsimzML)
 }
 
 G<-intmatrix
-
+minG<-0.08*max(G)
+G[ G < minG ] <- 0
 col.G <- colorRampPalette(c('white','green'))(100) 
 tiff(filename="G.tiff",res=1200,compression="lzw",height=200,width=200,units="mm")
 print(levelplot(G,main="",xlab="",ylab="",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,colorkey=FALSE,regions=TRUE,col.regions = col.G))
@@ -158,31 +160,13 @@ while (specno<=elementsimzML)
 }
 
 B<-intmatrix
-
+minB<-0.1*max(B)
+B[ B < minB ] <- 0
 col.B <- colorRampPalette(c('white','blue'))(100) 
 tiff(filename="B.tiff",res=1200,compression="lzw",height=200,width=200,units="mm")
 print(levelplot(B,main="",xlab="",ylab="",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,colorkey=FALSE,regions=TRUE,col.regions = col.B))
 dev.off()
 
-#col.D <- colorRampPalette(c('white','blue'))(100) 
-#D<-print(levelplot(intmatrix,main="",xlab="",ylab="",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,colorkey=FALSE,regions=TRUE,col.regions = col.D))
 
-R<-t(R)
-G<-t(G)
-B<-t(B)
+print("Images for RGB generated. You can combine them e.g. with ImageMagick $convert -combine R.tiff G.tiff B.tiff RGB.tiff")
 
-#define cut-offs
-
-minR<-0.1*max(R)
-minG<-0.1*max(G)
-minB<-0.1*max(B)
-
-R[ R < minR ] <- NA
-G[ G < minG ] <- NA
-B[ B < minB ] <- NA
-
-png(filename="RGB-plot.png")
-image(G, col=colorRampPalette(c('white','darkgreen'))(15)) 
-image(R, add=TRUE, col=colorRampPalette(c('white','darkred'))(15)) 
-image(B, add=TRUE, col=colorRampPalette(c('white','darkblue'))(15))
-dev.off()
