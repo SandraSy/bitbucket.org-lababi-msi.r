@@ -41,7 +41,7 @@ rownames(intmatrix) <- seq(miny,maxy)
 
 specno <-1
 
-centermz<-84.1 #in m/z, mass trace of interest
+centermz<-137.1325 #in m/z, mass trace of interest
 scantolerance<-0.4 #in m/z
 
 lowermass<-centermz-scantolerance
@@ -84,7 +84,13 @@ if (centermz<10){prefix<-"000000"}
 tifffilename<-paste(prefix,toString(centermz),"_",toString(scantolerance),".tiff",sep="")
 tifffiletitle<-paste("m/z ",toString(centermz),"+/-",toString(scantolerance),sep="")
 tiff(filename=tifffilename,res=1200,compression="lzw",height=200,width=200,units="mm")
-print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = terrain.colors(100)))
+#if you don't want contour lines, change to contour=FALSE
+#rainbow colors
+print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = rainbow(100,start=1/5)))
+#terrain (map-like) colors
+#print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = terrain.colors(100)))
+#greyscale
+#print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = grey.colors(100)))
 dev.off()
 
 # search for spectrum with highest intensity for this m/z
