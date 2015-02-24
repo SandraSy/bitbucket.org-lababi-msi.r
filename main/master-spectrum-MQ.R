@@ -1,11 +1,11 @@
-# This script summarizes the x (e.g. 100) most intense peaks/ point in one single spectrum
+# This script summarizes the x (e.g. 100) most intense peaks/ point of each spectrum in one single spectrum
 # The increasing number indicates the number of processed spectra
-# The final spectrum is printed into a publication quality .tiff file
-# Important parameters are:
+# The final spectrum is exported into a .mzML file
+# A density distribution map is printed to a publication quality .tiff
+
 # You can change the number of selected peaks with (this would be the setting for 100 signals):
 #if (length(newspec)>"200"){        //2x the number of peaks 
 #  newspec <- newspec[1:100,]}      //1:x strongest signals
-
 
 # Clear Workspace
 rm(list=ls())
@@ -48,9 +48,12 @@ while (specno<=elementsimzML)
   specno=specno+1
 }
 
+mzsumdensity<-density(mzsum)
+
 # printing spectrum. format options could be e.g. png, eps, tiff, pdf. You can control the resolution with res
-tiff(filename="masterspectrum.tiff",res=1200,compression="lzw",height=200,width=200,units="mm")
-plot(specmatrix[,1],specmatrix[,2],xlab="m/z",ylab="intensity",main="Pseudo Image Spectrum","h")
+tiff(filename="spectrumdensity.tiff",res=1200,compression="lzw",height=200,width=200,units="mm")
+plot(mzsumdensity,,xlab="m/z",ylab="density",main="m/z density distribution")
+polygon(mzsumdensity, col="grey") 
 dev.off()
 
 ## export a single spectrum

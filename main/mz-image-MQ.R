@@ -17,6 +17,9 @@ library("MALDIquantForeign")
 #install.packages("latticeExtra")
 library(latticeExtra)
 
+# library for HCL colors
+library(colorspace)
+
 # Load the imzML data
 #filename <- "/home/rob/SRC/MSI.R/SampleData/test.imzML"
 filename <- "/home/rob/MS-DATA/LTP-MSI-chilli/ltpmsi-chilli.imzML"
@@ -41,7 +44,7 @@ rownames(intmatrix) <- seq(miny,maxy)
 
 specno <-1
 
-centermz<-137.1325 #in m/z, mass trace of interest
+centermz<-84.1 #in m/z, mass trace of interest
 scantolerance<-0.4 #in m/z
 
 lowermass<-centermz-scantolerance
@@ -85,8 +88,8 @@ tifffilename<-paste(prefix,toString(centermz),"_",toString(scantolerance),".tiff
 tifffiletitle<-paste("m/z ",toString(centermz),"+/-",toString(scantolerance),sep="")
 tiff(filename=tifffilename,res=1200,compression="lzw",height=200,width=200,units="mm")
 #if you don't want contour lines, change to contour=FALSE
-#rainbow colors
-print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = rainbow(100,start=1/5)))
+#HCL sequential colors
+print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = heat_hcl(100, h = c(250, 0), c. = c(100, 30), l = c(50, 90), power = c(1/5, 3), gamma = NULL, fixup = TRUE, alpha = 1)))
 #terrain (map-like) colors
 #print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = terrain.colors(100)))
 #greyscale

@@ -38,7 +38,7 @@ rownames(intmatrix) <- seq(miny,maxy)
 
 
 centermz<-0.1 #in m/z, start of scanning
-scanmaxmz<-2000 #in m/z, end of scanning
+scanmaxmz<-1000 #in m/z, end of scanning
 scansteps<-0.2 #in m/z, should be smaller than scantolerance
 scantolerance<-0.4 #in m/z
 
@@ -91,7 +91,7 @@ while (specno<=elementsimzML)
 png(pngfilename)
 #if you don't want contour lines, change to contour=FALSE
 #rainbow colors
-print(levelplot(intmatrix,main=pngfiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = rainbow(100,start=1/5))
+print(levelplot(intmatrix,main=pngfiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = rainbow(100,start=1/5)))
 #terrain (map-like) colors
 #print(levelplot(intmatrix,main=pngfiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = terrain.colors(100)))
 #greyscale
