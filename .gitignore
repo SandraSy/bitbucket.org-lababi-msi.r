@@ -7,6 +7,7 @@ main/*.mzML
 main/*.csv
 test/
 msi-org/
+data/
 SampleData/
 MSI.R-chilli/
 imzMLConverter/

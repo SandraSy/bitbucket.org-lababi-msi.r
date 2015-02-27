@@ -5,8 +5,6 @@
 
 # Clear Workspace
 rm(list=ls())
-#set working directory to source file
-setwd("~/SRC/MSI.R/main")
 
 # install MALDIquant
 #install.packages(c("MALDIquantForeign", "MALDIquant"))
@@ -21,8 +19,7 @@ library(latticeExtra)
 library(colorspace)
 
 # Load the imzML data
-#filename <- "/home/rob/SRC/MSI.R/SampleData/test.imzML"
-filename <- "/home/rob/MS-DATA/LTP-MSI-chilli/ltpmsi-chilli.imzML"
+filename <- "../data/ltpmsi-chilli.imzML"
 
 imagespectra <- importImzMl(filename, centroided=TRUE)
 #plotImsSlice(imagespectra)
