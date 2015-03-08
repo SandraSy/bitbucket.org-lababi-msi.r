@@ -5,6 +5,7 @@ main/*.png
 main/*.tiff
 main/*.mzML
 main/*.csv
+main/*.R~
 test/
 msi-org/
 data/

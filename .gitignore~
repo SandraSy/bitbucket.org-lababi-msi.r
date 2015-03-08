@@ -1,10 +1,13 @@
 main/.RData
 main/.Rhistory
+main/.directory
 main/*.png
 main/*.tiff
 main/*.mzML
+main/*.csv
 test/
 msi-org/
+data/
 SampleData/
 MSI.R-chilli/
 imzMLConverter/
