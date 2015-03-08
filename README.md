@@ -4,7 +4,7 @@ MSI.R scripts for mass spectrometry imaging (MSI) .imzML files.
 
 ### Installation ###
 
-You can modify and run the scripts in R http://www.r-project.org/. The use of RStudio is recommended http://www.rstudio.com/
+You can modify and run the scripts in R http://www.r-project.org/. For editing, the use of RStudio is recommended http://www.rstudio.com/
 
 ### Contribution guidelines ###
 
