@@ -1,4 +1,4 @@
-main/.RData
+﻿main/.RData
 main/.Rhistory
 main/.directory
 main/*.png
@@ -6,6 +6,7 @@ main/*.tiff
 main/*.mzML
 main/*.csv
 main/*.R~
+main/*.Rout
 test/
 msi-org/
 data/

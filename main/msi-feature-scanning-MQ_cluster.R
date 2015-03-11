@@ -8,6 +8,13 @@ rm(list=ls())
 library("MALDIquant")
 library("MALDIquantForeign")
 
+# library for parallel computing and creation of cluster. 
+library(iterators)
+library(doParallel)
+# create R cluster. Please register the number of CPUs you want to use.
+cl<-makeCluster(2)
+registerDoParallel(cl)
+
 # Library for 2D maps
 #install.packages("latticeExtra")
 library(latticeExtra)
@@ -33,13 +40,17 @@ intmatrix <- matrix(0,yrange,xrange)
 colnames(intmatrix) <- seq(minx,maxx)
 rownames(intmatrix) <- seq(miny,maxy)
 
-
-centermz<-40 #in m/z, start of scanning
+startmz<-40 #in m/z, start of scanning
+centermz<-startmz #in m/z, start of scanning
 scanmaxmz<-540 #in m/z, end of scanning
 scansteps<-0.2 #in m/z, should be smaller than scantolerance
 scantolerance<-0.4 #in m/z
+scanrangevec<-seq(startmz, scanmaxmz, by = scansteps)
+iteratorvec<-iter(scanrangevec)
+  
+# For running in sequential mode, change %dopar% to %do%
 
-while (centermz<=scanmaxmz)
+foreach(centermz=iteratorvec, .packages=c('MALDIquant','latticeExtra','iterators')) %dopar%
 {
   # This will be name and title of the .png file
   # To sort the files according to the m/z mass, a prefix is used
@@ -95,6 +106,11 @@ print(levelplot(intmatrix,main=pngfiletitle,xlab="x/ pixel",ylab="y/ pixel",scal
 #print(levelplot(intmatrix,main=pngfiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = grey.colors(100)))
 dev.off()
 
-print("mz image saved to file.")
-centermz=centermz+scansteps
 }
+
+# Information about employed CPU workers and closing the cluster
+workers <- getDoParWorkers()
+print('CPU workers employed: ')
+print(workers)
+stopCluster(cl)
+

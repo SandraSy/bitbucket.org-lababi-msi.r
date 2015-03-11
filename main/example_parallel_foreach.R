@@ -2,7 +2,7 @@
 # install.packages('doParallel')
 library(doParallel)
 
-# create R cluster; Please register number of CPU you want to use here.
+# create R cluster; Please register the number of CPUs you want to use.
 cl<-makeCluster(2)
 registerDoParallel(cl)
 
