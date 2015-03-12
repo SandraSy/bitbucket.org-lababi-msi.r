@@ -10,6 +10,10 @@ You can modify and run the scripts in R http://www.r-project.org/. For editing, 
 
 Please report your experiences and problems.
 
+### License ###
+
+GNU General Public License, version 3 (http://gplv3.fsf.org/).
+
 ### Contact ###
 
 robert.winkler@ira.cinvestav.mx,
