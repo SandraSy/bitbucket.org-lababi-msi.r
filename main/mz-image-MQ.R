@@ -115,6 +115,7 @@ mzMLspecname<-paste(toString(specposition['x']),"x_",toString(specposition['y'])
 
 tiff(filename=tiffspecname,res=1200,compression="lzw",height=200,width=200,units="mm")
 plot(mzs,counts,xlab="m/z",ylab="intensity",main=tiffspectitle,"h")
+abline(h=0)
 dev.off()
 #export .mzML data
 s <- list(createMassSpectrum(mass=mzs, intensity=counts))
