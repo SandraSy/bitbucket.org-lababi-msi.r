@@ -36,7 +36,7 @@ mzdensity <- density(sapply(imagespectra, mass), bw=0.01)
 
 ## as needs MALDIquant 1.11.4 from github: install_github("sgibb/MALDIquant")
 ## otherwise you could use:
-## peaks <- mergeMassPeaks(imagespectra.sg, method="sum")
+## peaks <- mergeMassPeaks(imagespectra, method="sum")
 ## masterspectrum <- createMassSpectrum(mass(peaks), intensity(peaks))
 masterspectrum <- as(mergeMassPeaks(imagespectra, method="sum"),
                      "MassSpectrum")
