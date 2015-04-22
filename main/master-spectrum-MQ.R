@@ -19,7 +19,7 @@ library("MALDIquant")
 library("MALDIquantForeign")
 
 # Load the imzML data
-filename <- file.path("..", "data", "ltpms-chilli.imzML")
+filename <- file.path("..", "data", "ltpmsi-chilli.imzML")
 
 # Define a new function to find and return the highest n peaks in each spectrum.
 topN <- function(peaklist, n=100) {
