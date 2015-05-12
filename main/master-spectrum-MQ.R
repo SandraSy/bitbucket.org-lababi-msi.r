@@ -18,7 +18,7 @@ library("MALDIquant")
 library("MALDIquantForeign")
 
 # Load the imzML data
-filename <- "../data/ltpmsi-chilli.imzML"
+filename <- file.path("..", "data", "ltpmsi-chilli.imzML")
 
 imagespectra <- importImzMl(filename, centroided=TRUE)
 #plotImsSlice(imagespectra)
@@ -28,22 +28,22 @@ specno <-1
 
 while (specno<=elementsimzML)
 {
-    mzs <- mass(imagespectra[[specno]])
-    counts <- intensity(imagespectra[[specno]])
-    newspec  <- cbind(mzs, counts)
-    newspec <- newspec[order(-counts),]
-    if (length(newspec)>"200"){
+  mzs <- mass(imagespectra[[specno]])
+  counts <- intensity(imagespectra[[specno]])
+  newspec  <- cbind(mzs, counts)
+  newspec <- newspec[order(-counts),]
+  if (length(newspec)>"200"){
     newspec <- newspec[1:100,]}
-    
-    mzs<-newspec[,1]
-    counts<-newspec[,2]
-    
-    if(exists("mzsum")=="TRUE"){mzsum<-c(mzsum,mzs)}
-    if(exists("countsum")=="TRUE"){countsum<-c(countsum,counts)}
-    if(exists("mzsum")=="FALSE"){mzsum<-mzs}
-    if(exists("countsum")=="FALSE"){countsum<-counts}
-    specmatrix <- cbind(mzsum, countsum)  
-    print(specno)
+  
+  mzs<-newspec[,1]
+  counts<-newspec[,2]
+  
+  if(exists("mzsum")=="TRUE"){mzsum<-c(mzsum,mzs)}
+  if(exists("countsum")=="TRUE"){countsum<-c(countsum,counts)}
+  if(exists("mzsum")=="FALSE"){mzsum<-mzs}
+  if(exists("countsum")=="FALSE"){countsum<-counts}
+  specmatrix <- cbind(mzsum, countsum)  
+  print(specno)
   specno=specno+1
 }
 

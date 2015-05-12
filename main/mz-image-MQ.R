@@ -86,11 +86,11 @@ tifffiletitle<-paste("m/z ",toString(centermz),"+/-",toString(scantolerance),sep
 tiff(filename=tifffilename,res=1200,compression="lzw",height=200,width=200,units="mm")
 #if you don't want contour lines, change to contour=FALSE
 #HCL sequential colors
-print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = heat_hcl(100, h = c(250, 0), c. = c(100, 30), l = c(50, 90), power = c(1/5, 3), gamma = NULL, fixup = TRUE, alpha = 1)))
+print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = heat_hcl(100, h = c(0, 250), c. = c(30, 150), l = c(100, 25), power = c(1/5, 3), gamma = NULL, fixup = TRUE, alpha = 1)))
 #terrain (map-like) colors
 #print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = terrain.colors(100)))
 #greyscale
-#print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = FALSE),contour=TRUE,pretty=TRUE,col.regions = grey.colors(100)))
+#print(levelplot(intmatrix,main=tifffiletitle,xlab="x/ pixel",ylab="y/ pixel",scales = list(draw = TRUE),contour=FALSE,pretty=TRUE,col.regions = grey.colors(100,start = 1, end = 0, gamma = 2.2)))
 dev.off()
 
 # search for spectrum with highest intensity for this m/z
