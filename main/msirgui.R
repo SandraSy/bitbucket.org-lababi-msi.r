@@ -273,7 +273,7 @@ library(RGtk2)
 #main window
 main_window <- gtkWindow(show=FALSE)
 main_window["title"]<-"MSI.R GUI"
-main_window$setDefaultSize(600,600)
+#main_window$setDefaultSize(600,600)
 
 
 #definition of general callbacks
@@ -285,6 +285,13 @@ print(filename)
 statusbar$push(info,filename)
 }
 quit_cb<-function(widget,window) window$destroy()
+scale_cb<-function(range){
+	par(pty="s")
+	plot(ma_data[,1], ma_data[,2],
+	col=rgb(0,0,0, alpha=range$getValue()),
+	xlab="Replicate 1", ylab="Replicate 2",
+	main="Mock expression data", pch=19)
+}
 
 #definition of actions
 actions<-list(list("FileMenu", NULL, "_File"), 
@@ -310,6 +317,28 @@ menubar<-ui_manager$getWidget("/menubar")
 toolbar<-ui_manager$getWidget("/toolbar")
 main_window$addAccelGroup(ui_manager$getAccelGroup())
 
+#action buttons
+button_1<-gtkButton("Create master spectrum")
+gSignalConnect(button_1, "clicked", function(widget) masterspecFunction(filename))
+button_2<-gtkButton("Scan and create images")
+gSignalConnect(button_2, "clicked", function(widget) featurescanningFunction(filename))
+button_3<-gtkButton("Individual ion analysis")
+gSignalConnect(button_3, "clicked", function(widget) ionimageFunction(filename))
+button_4<-gtkButton("Create RGB ion images")
+gSignalConnect(button_4, "clicked", function(widget) threeimagesFunction(filename))
+
+#test data for plotting
+n<-5000
+backbone<-rnorm(n)
+ma_data<-cbind(backbone+c(rnorm(3*(n/4),sd=0.1), rt(n/4,80)),backbone+c(rnorm(3*(n/4), , 0.1), rt(n/4,80)))
+ma_data<-apply(ma_data,2,function(col) col-min(col))
+
+#plotting window
+graphics<-gtkDrawingArea()
+slider<-gtkHScale(min=0.1,max=1.00,step=0.1)
+gSignalConnect(slider,"value-changed",scale_cb)
+
+
 #status bar
 statusbar<-gtkStatusbar()
 info<-statusbar$getContextId("info")
@@ -319,16 +348,12 @@ statusbar$push(info,filename)
 vbox<-gtkVBox(homogeneous=FALSE, spacing=0)
 vbox$packStart(menubar, expand=FALSE, fill=FALSE, padding=0)
 vbox$packStart(toolbar, FALSE, FALSE, 0)
+vbox$packStart(button_1)
+vbox$packStart(button_2)
+vbox$packStart(button_3)
+vbox$packStart(button_4)
+vbox$packStart(graphics, expand=TRUE, fill=TRUE)
+vbox$packStart(slider)
 vbox$packStart(statusbar, FALSE, FALSE, 0)
 main_window$add(vbox)
 main_window$show()
-
-
-
-#group <- ggroup(horizontal = FALSE, container=win)
-#obj <- gbutton("Choose .imzML file",container=group, handler = function(h,...) {filename<<-gfile()})
-#obj <- gbutton("Create master spectrum",container=group, handler = function(h,...) masterspecFunction(filename))
-#obj <- gbutton("Scan and create images",container=group, handler = function(h,...) featurescanningFunction(filename))
-#obj <- gbutton("Individual ion analysis",container=group, handler = function(h,...) ionimageFunction(filename))
-#obj <- gbutton("Create RGB ion images",container=group, handler = function(h,...) threeimagesFunction(filename))
-               
