@@ -1,6 +1,8 @@
-
 library("msir")
 
+filename<-".imzML file name"
+
+#definition of image analysis functions
 masterspecFunction<-function(filename){
 imagespectra <- importImzMl(filename, centroided=TRUE)
 imagespectra <- topN(imagespectra, n=100)
@@ -267,13 +269,66 @@ print("Images for RGB generated. You can combine them e.g. with ImageMagick $con
 }
 
 #GUI
-require(gWidgets)
-options("guiToolkit"="RGtk2")
-win <- gwindow("MSI.R GUI", visible=TRUE)
-group <- ggroup(horizontal = FALSE, container=win)
-obj <- gbutton("Choose .imzML file",container=group, handler = function(h,...) {filename<<-gfile()})
-obj <- gbutton("Create master spectrum",container=group, handler = function(h,...) masterspecFunction(filename))
-obj <- gbutton("Scan and create images",container=group, handler = function(h,...) featurescanningFunction(filename))
-obj <- gbutton("Individual ion analysis",container=group, handler = function(h,...) ionimageFunction(filename))
-obj <- gbutton("Create RGB ion images",container=group, handler = function(h,...) threeimagesFunction(filename))
+library(RGtk2)
+#main window
+main_window <- gtkWindow(show=FALSE)
+main_window["title"]<-"MSI.R GUI"
+main_window$setDefaultSize(600,600)
+
+
+#definition of general callbacks
+open_cb<-function(widget,window){
+dialog<-gtkFileChooserDialog("Choose a .imzML file", window, "open", "gtk-cancel", GtkResponseType["cancel"], "gtk-open",GtkResponseType["accept"])
+if (dialog$run()==GtkResponseType["accept"]){filename<<-dialog$getFilename()}
+dialog$destroy()
+print(filename)
+statusbar$push(info,filename)
+}
+quit_cb<-function(widget,window) window$destroy()
+
+#definition of actions
+actions<-list(list("FileMenu", NULL, "_File"), 
+	list("Open", "gtk-open", "_Open File", "<control>o", "Load an .imzML file", open_cb),
+	list("Quit", "gtk-quit", "_Quit", "<control>q", "Quit MSI.R GUI", quit_cb)
+	)
+action_group<-gtkActionGroup("imzmlActions")
+action_group$addActions(actions,main_window)
+
+#specify layout of menu and toolbar
+ui_manager<-gtkUIManager()
+ui_manager$insertActionGroup(action_group,0)
+merge<-ui_manager$newMergeId()
+ui_manager$addUi(merge.id=merge, path="/",name="menubar",action=NULL,type="menubar",top=FALSE)
+ui_manager$addUi(merge,"/menubar", "file", "FileMenu", "menu", FALSE)
+ui_manager$addUi(merge,"/menubar/file", "open", "Open", "menuitem", FALSE)
+#ui_manager$addUi(merge,"/menubar/file", "sep", NULL, "menuitem", FALSE)
+ui_manager$addUi(merge,"/menubar/file", "quit", "Quit", "menuitem", FALSE)
+ui_manager$addUi(merge,"/", "toolbar", NULL, "toolbar", FALSE)
+ui_manager$addUi(merge,"/toolbar", "open", "Open", "toolitem", FALSE)
+ui_manager$addUi(merge,"/toolbar", "quit", "Quit", "toolitem", FALSE)
+menubar<-ui_manager$getWidget("/menubar")
+toolbar<-ui_manager$getWidget("/toolbar")
+main_window$addAccelGroup(ui_manager$getAccelGroup())
+
+#status bar
+statusbar<-gtkStatusbar()
+info<-statusbar$getContextId("info")
+statusbar$push(info,filename)
+
+#organize and display GUI
+vbox<-gtkVBox(homogeneous=FALSE, spacing=0)
+vbox$packStart(menubar, expand=FALSE, fill=FALSE, padding=0)
+vbox$packStart(toolbar, FALSE, FALSE, 0)
+vbox$packStart(statusbar, FALSE, FALSE, 0)
+main_window$add(vbox)
+main_window$show()
+
+
+
+#group <- ggroup(horizontal = FALSE, container=win)
+#obj <- gbutton("Choose .imzML file",container=group, handler = function(h,...) {filename<<-gfile()})
+#obj <- gbutton("Create master spectrum",container=group, handler = function(h,...) masterspecFunction(filename))
+#obj <- gbutton("Scan and create images",container=group, handler = function(h,...) featurescanningFunction(filename))
+#obj <- gbutton("Individual ion analysis",container=group, handler = function(h,...) ionimageFunction(filename))
+#obj <- gbutton("Create RGB ion images",container=group, handler = function(h,...) threeimagesFunction(filename))
                
