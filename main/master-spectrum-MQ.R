@@ -6,7 +6,7 @@
 # Further, peaks are picked and exported to a .csv text file and added to a zoom spectrum
 # Please adjust the paramenters for peak picking (e.g. signal/noise) and spectrum zoom below
 
-library("msir")
+library("rmsi")
 
 # Load the imzML data
 filename <- file.path("..", "data", "ltpmsi-chilli.imzML")

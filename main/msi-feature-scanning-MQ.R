@@ -1,5 +1,5 @@
 # This script generates mass images for a selected m/z range and m/z tolerance
-library("msir")
+library("rmsi")
 
 # Load the imzML data
 filename <- file.path("..", "data", "ltpmsi-chilli.imzML")

@@ -1,4 +1,4 @@
-library("msir")
+library("rmsi")
 
 filename<-".imzML file name"
 

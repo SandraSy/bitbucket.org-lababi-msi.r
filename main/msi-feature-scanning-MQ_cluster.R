@@ -1,16 +1,15 @@
 # This script generates mass images for a selected m/z range and m/z tolerance
+# updated version, using Sebastian Gibb's rmsi package
+
+library("rmsi")
 
 # Clear Workspace
 rm(list=ls())
 
-# install MALDIquant
-#install.packages(c("MALDIquantForeign", "MALDIquant"))
-library("MALDIquant")
-library("MALDIquantForeign")
-
 # library for parallel computing and creation of cluster. 
 library(iterators)
 library(doParallel)
+
 # create R cluster. Please register the number of CPUs you want to use.
 cl<-makeCluster(2)
 registerDoParallel(cl)
@@ -20,7 +19,7 @@ registerDoParallel(cl)
 library(latticeExtra)
 
 # Load the imzML data
-filename <- "../data/ltpmsi-chilli.imzML"
+filename <- file.path("..", "data", "ltpmsi-chilli.imzML")
 
 imagespectra <- importImzMl(filename, centroided=TRUE)
 #plotImsSlice(imagespectra)
